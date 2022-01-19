@@ -1,0 +1,70 @@
+basePath: /game
+definitions:
+  domain.BadRequestResponse:
+    properties:
+      code:
+        example: "004"
+        type: string
+      message:
+        example: '[message]'
+        type: string
+      result:
+        example: "null"
+        type: string
+    type: object
+  domain.ExampleGameName:
+    properties:
+      Name:
+        example: Admin
+        type: string
+    type: object
+  domain.SuccessResponse:
+    properties:
+      code:
+        example: "000"
+        type: string
+      message:
+        example: '[message]'
+        type: string
+      result:
+        type: object
+    type: object
+host: localhost:1111
+info:
+  contact:
+    email: intanmarsjaf@outlook.com
+    name: Developer
+  description: This page is API documentation for a little game like predict age by
+    name
+  title: GOGAME
+  version: "1.0"
+paths:
+  /v1/name:
+    post:
+      consumes:
+      - application/json
+      description: This is API to get prediction from name input by user
+      parameters:
+      - description: Name Prediction
+        in: body
+        name: Gamev1
+        required: true
+        schema:
+          $ref: '#/definitions/domain.ExampleGameName'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.BadRequestResponse'
+      summary: Game of Name Prediction
+      tags:
+      - Game
+schemes:
+- http
+swagger: "2.0"

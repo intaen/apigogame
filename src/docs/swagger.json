@@ -1,0 +1,103 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "This page is API documentation for a little game like predict age by name",
+        "title": "GOGAME",
+        "contact": {
+            "name": "Developer",
+            "email": "intanmarsjaf@outlook.com"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:1111",
+    "basePath": "/game",
+    "paths": {
+        "/v1/name": {
+            "post": {
+                "description": "This is API to get prediction from name input by user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Game"
+                ],
+                "summary": "Game of Name Prediction",
+                "parameters": [
+                    {
+                        "description": "Name Prediction",
+                        "name": "Gamev1",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.ExampleGameName"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/domain.BadRequestResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "domain.BadRequestResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "004"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "[message]"
+                },
+                "result": {
+                    "type": "string",
+                    "example": "null"
+                }
+            }
+        },
+        "domain.ExampleGameName": {
+            "type": "object",
+            "properties": {
+                "Name": {
+                    "type": "string",
+                    "example": "Admin"
+                }
+            }
+        },
+        "domain.SuccessResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "000"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "[message]"
+                },
+                "result": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
