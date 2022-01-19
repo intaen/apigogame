@@ -62,6 +62,6 @@ func main() {
 	// Initiate Controller
 	gc.CreateGameController(r, gService)
 
-	// r.Run(":" + viper.GetString("port"))
-	r.Run() // Heroku will supply automatically
+	r.Run(":" + viper.GetString("port"))
+	// r.Run() // Heroku will supply automatically
 }
