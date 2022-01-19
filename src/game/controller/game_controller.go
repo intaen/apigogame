@@ -26,7 +26,7 @@ func CreateGameController(r *gin.Engine, gService domain.GameService) {
 
 // Name Prediction godoc
 // @Tags Game
-// @Summary Game of Name Prediction
+// @Summary Prediction Game
 // @Description This is API to get prediction from name input by user
 // @Accept json
 // @Produce json
@@ -53,7 +53,7 @@ func (g *GameController) Gamev1Name(c *gin.Context) {
 
 // Random Activity godoc
 // @Tags Game
-// @Summary Game of Shows Random Activity
+// @Summary Random Activity Game
 // @Description This is API to get get random activity
 // @Produce json
 // @Success 200 {object} domain.SuccessResponse
@@ -72,7 +72,7 @@ func (g *GameController) Gamev1Dare(c *gin.Context) {
 
 // Today Fact godoc
 // @Tags Game
-// @Summary Game of Fact Math
+// @Summary Fact Game
 // @Description This is API to get get fact about math
 // @Produce json
 // @Success 200 {object} domain.SuccessResponse

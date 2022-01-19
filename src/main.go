@@ -28,7 +28,7 @@ func init() {
 
 // @title GOGAME
 // @version 1.0
-// @description This page is API documentation for a little game like predict age by name
+// @description This page is API documentation for a little game like predict age, country, gender by name, get random activity, get today fact
 // @schemes http
 // @host localhost:1111
 // @BasePath /game
@@ -50,7 +50,7 @@ func main() {
 	})
 
 	// Swagger
-	url := ginSwagger.URL(viper.GetString("host") + ":" + viper.GetString("port") + "/swagger/doc.json") // The url pointing to API definition
+	url := ginSwagger.URL("apigogame.herokuapp.com" + "/swagger/doc.json") // The url pointing to API definition
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))                            // http://localhost:1111/swagger/index.html
 
 	// Initiate Repo
@@ -62,6 +62,6 @@ func main() {
 	// Initiate Controller
 	gc.CreateGameController(r, gService)
 
-	// r.Run(":" + viper.GetString("port"))
-	r.Run() // Heroku will supply automatically
+	r.Run(":" + viper.GetString("port"))
+	// r.Run() // Heroku will supply automatically
 }
