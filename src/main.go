@@ -62,5 +62,5 @@ func main() {
 	// Initiate Controller
 	gc.CreateGameController(r, gService)
 
-	r.Run(":" + viper.GetString("port"))
+	r.Run()
 }
