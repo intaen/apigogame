@@ -4,6 +4,8 @@
     "url": {
         "predict-age": "https://api.agify.io/?",
         "predict-nat": "https://api.nationalize.io/?",
-        "random-act": "https://www.boredapi.com/api/activity"
+        "predict-gender": "https://api.genderize.io/?",
+        "random-act": "https://www.boredapi.com/api/activity",
+        "fact-math": "http://numbersapi.com/random/math"
     }
 }

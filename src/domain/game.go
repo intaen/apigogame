@@ -2,31 +2,35 @@ package domain
 
 type GameService interface {
 	PredictionByName(string) (*GameName, error)
-	Punishment() (*Punishment, error)
+	Punishment() (*CheckDare, error)
+	CheckFact() (*CheckFact, error)
 }
 
 type GameRepo interface {
 	GetPredictAge(string) (*PredictAge, error)
 	GetPredictNationality(string) (*PredictNationality, error)
+	GetPredictGender(string) (*PredictGender, error)
 	GetRandomActivity() (*RandomActivity, error)
+	GetFactMath() (*FactMath, error)
 }
 
 type (
 	InputGameName struct {
-		Name string `form:"name" json:"name"`
-	}
-
-	ExampleGameName struct {
-		Name string `json:"Name" example:"Admin"`
+		Name string `form:"name" json:"name" binding:"required"`
 	}
 
 	GameName struct {
 		PredictAge         int         `json:"predict_age"`
 		PredictNationality interface{} `json:"predict_nationality"`
+		PredictGender      string      `json:"predict_gender"`
 	}
 
-	Punishment struct {
+	CheckDare struct {
 		RandomActivity string
+	}
+
+	CheckFact struct {
+		Fact string
 	}
 
 	// API
@@ -45,6 +49,13 @@ type (
 		Probability float64 `json:"probability"`
 	}
 
+	PredictGender struct {
+		Name        string  `json:"name"`
+		Gender      string  `json:"gender"`
+		Probability float64 `json:"probability"`
+		Count       int     `json:"count"`
+	}
+
 	RandomActivity struct {
 		Activity      string  `json:"activity"`
 		Type          string  `json:"type"`
@@ -53,5 +64,12 @@ type (
 		Link          string  `json:"link"`
 		Key           string  `json:"key"`
 		Accessibility float32 `json:"accessibility"`
+	}
+
+	FactMath struct {
+		Text   string `json:"text"`
+		Number int    `json:"number"`
+		Found  bool   `json:"bool"`
+		Type   string `json:"type"`
 	}
 )

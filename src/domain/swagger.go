@@ -22,4 +22,9 @@ type (
 		Message    string      `json:"message" example:"[message]"`
 		Result     interface{} `json:"result" swaggertype:"string" example:"null"`
 	}
+
+	// Input example swagger
+	ExampleGameName struct {
+		Name string `json:"Name" example:"Admin"`
+	}
 )

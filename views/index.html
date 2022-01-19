@@ -1,48 +1,19 @@
 <html lang="en">
   <head>
+    <title>Game</title>
     <link rel="stylesheet" href="/css/style.css"/>
-    <!-- <script src="app.js"></script> -->
+    <script src="app.js"></script>
   </head>
   <body>
     <div class="title">
-      <h1>LET'S TAKE A GUESS YOUR AGE AND NATIONALITY</h1>
+      <h1>Welcome to GoGame</h1>
     </div>
 
-    <h3>Please enter your name:</h3>
-    <form id="form" onsubmit="submitForm(event)">
-      <input type="text" id="name"><br><br>
-      <input type="submit">
-    </form>
-
-    <script>
-      function submitForm(e) {
-        var greetings = document.getElementById("name").value;
-        var param = greetings
-        if (greetings == "") {
-          greetings = "user"
-        }
-        alert("Hi "+greetings+"! Wait a minute...");
-
-        e.preventDefault();
-    
-        fetch('/game/v1/name', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            "Name": param,
-          })
-        }).then(function(response) {
-          return response.json();
-        }).then(function(data) {
-        // Success code goes here
-          alert("Here your result:\n"+JSON.stringify(data))
-        }).catch(function(err) {
-        // Failure
-          alert('Error: '+err)
-        });
-      }
-    </script>
+    <h2>Select Game</h1>
+    <div class="menu">
+    <button onclick="createPagePrediction()">Get Prediction</button>
+    <button onclick="createPageFact()">Today Fact</button>
+    <button onclick="createPageDare()">Do You Dare?</button>
+    </div>
   </body>
 </html>
