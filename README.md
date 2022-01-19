@@ -1,6 +1,6 @@
 # apigogame
 
-Simple API contains simple game such as predict your age and country by input name.
+Simple API contains simple game such as predict your age, country, gender by input name, get today fact, and get random activity.
 
 ## Documentation
 ```Swagger```
