@@ -50,7 +50,7 @@ func main() {
 	})
 
 	// Swagger
-	url := ginSwagger.URL("apigogame.herokuapp.com" + "/swagger/doc.json") // The url pointing to API definition
+	url := ginSwagger.URL(viper.GetString("host") + ":" + viper.GetString("port") + "/swagger/doc.json") // The url pointing to API definition
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))                            // http://localhost:1111/swagger/index.html
 
 	// Initiate Repo
@@ -62,6 +62,6 @@ func main() {
 	// Initiate Controller
 	gc.CreateGameController(r, gService)
 
-	r.Run(":" + viper.GetString("port"))
-	// r.Run() // Heroku will supply automatically
+	//r.Run(":" + viper.GetString("port"))
+	r.Run() // Heroku will supply automatically
 }
