@@ -21,6 +21,7 @@ func CreateGameController(r *gin.Engine, gService domain.GameService) {
 		v1.POST("/name", GameController.Gamev1Name)
 		v1.GET("/dare", GameController.Gamev1Dare)
 		v1.GET("/fact", GameController.Gamev1Fact)
+		v1.GET("/img", GameController.Gamev1Img)
 	}
 }
 
@@ -44,7 +45,7 @@ func (g *GameController) Gamev1Name(c *gin.Context) {
 
 	result, err := g.gService.PredictionByName(input.Name)
 	if err != nil {
-		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in Homepage")
+		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in PredictionByName")
 		return
 	}
 	resp, log := util.ConvertResponse(result)
@@ -54,15 +55,15 @@ func (g *GameController) Gamev1Name(c *gin.Context) {
 // Random Activity godoc
 // @Tags Game
 // @Summary Random Activity Game
-// @Description This is API to get get random activity
+// @Description This is API to get random activity
 // @Produce json
 // @Success 200 {object} domain.SuccessResponse
 // @Failure 400 {object} domain.BadRequestResponse
 // @Router /v1/dare [get]
 func (g *GameController) Gamev1Dare(c *gin.Context) {
-	result, err := g.gService.Punishment()
+	result, err := g.gService.DoYouDare()
 	if err != nil {
-		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in Homepage")
+		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in DoYouDare")
 		return
 	}
 
@@ -70,10 +71,10 @@ func (g *GameController) Gamev1Dare(c *gin.Context) {
 	util.HandleSuccess(c, http.StatusOK, "000", "Here's your dare!", resp, log, "Success")
 }
 
-// Today Fact godoc
+// Fact Check godoc
 // @Tags Game
 // @Summary Fact Game
-// @Description This is API to get get fact about math
+// @Description This is API to get random fact
 // @Produce json
 // @Success 200 {object} domain.SuccessResponse
 // @Failure 400 {object} domain.BadRequestResponse
@@ -81,10 +82,29 @@ func (g *GameController) Gamev1Dare(c *gin.Context) {
 func (g *GameController) Gamev1Fact(c *gin.Context) {
 	result, err := g.gService.CheckFact()
 	if err != nil {
-		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in Homepage")
+		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in CheckFact")
 		return
 	}
 
 	resp, log := util.ConvertResponse(result)
 	util.HandleSuccess(c, http.StatusOK, "000", "Here's today fact!", resp, log, "Success")
+}
+
+// Random Image godoc
+// @Tags Game
+// @Summary Random Image Game
+// @Description This is API to get random image
+// @Produce json
+// @Success 200 {object} domain.SuccessResponse
+// @Failure 400 {object} domain.BadRequestResponse
+// @Router /v1/img [get]
+func (g *GameController) Gamev1Img(c *gin.Context) {
+	result, err := g.gService.CheckImg()
+	if err != nil {
+		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in CheckImg")
+		return
+	}
+
+	resp, log := util.ConvertResponse(result)
+	util.HandleSuccess(c, http.StatusOK, "000", "Be happy!", resp, log, "Success")
 }

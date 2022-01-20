@@ -1,15 +1,25 @@
 body {
-      font-family: Arial;
+      background-color: rgb(175, 175, 175);
     }
 
     .title {
       border: 2px solid black;
       margin: 20px;
       padding: 20px;
+      background-color:black;
+      color: white;
+    }
+
+    .subtitle {
+      border: 2px solid black;
+      margin: 20px;
+      padding: 20px;
+      background-color: black;
+      color: white;
     }
 
     h1 {
-      color: blue;
+      color: rgb(175, 175, 175);
       text-align: center;
     }
 
@@ -21,6 +31,10 @@ body {
         color: black;
         text-align: center;
     }
+    h4 {
+      color: black;
+      text-align: center;
+  }
 
     form {
         text-align: center;
@@ -31,7 +45,22 @@ body {
       position: relative;
     }
 
-    .button {
+    button {
       text-align: center;
       position: relative;
+      width: 100px;
+      height: 50px;
+      color: black;
+      background-color: rgb(175, 175, 175);
+    }
+
+    .space {
+      margin: 20px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px;
+      color: black;
     }

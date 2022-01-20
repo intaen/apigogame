@@ -4,6 +4,8 @@ import (
 	gc "apigogame/src/game/controller"
 	gr "apigogame/src/game/repo"
 	gs "apigogame/src/game/service"
+	mdr "apigogame/src/masterdata/repo"
+	mds "apigogame/src/masterdata/service"
 	"apigogame/src/util"
 	"net/http"
 
@@ -18,6 +20,8 @@ import (
 	_ "apigogame/src/docs"
 )
 
+// swagger to heroku
+// new api for random fact&img
 func init() {
 	viper.SetConfigFile("src/config/Config.json")
 	err := viper.ReadInConfig()
@@ -28,7 +32,7 @@ func init() {
 
 // @title GOGAME
 // @version 1.0
-// @description This page is API documentation for a little game like predict age, country, gender by name, get random activity, get today fact
+// @description This page is API documentation for a little game like predict age by name
 // @schemes http
 // @host localhost:1111
 // @BasePath /game
@@ -54,14 +58,16 @@ func main() {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))                            // http://localhost:1111/swagger/index.html
 
 	// Initiate Repo
+	mdRepo := mdr.CreateMasterDataRepoImpl()
 	gRepo := gr.CreateGameRepoImpl()
 
 	// Initiate Service
-	gService := gs.CreateGameServiceImpl(gRepo)
+	mdService := mds.CreateMasterDataServiceImpl(mdRepo)
+	gService := gs.CreateGameServiceImpl(gRepo, mdService)
 
 	// Initiate Controller
 	gc.CreateGameController(r, gService)
 
-	//r.Run(":" + viper.GetString("port"))
-	r.Run() // Heroku will supply automatically
+	r.Run(":" + viper.GetString("port"))
+	// r.Run() // Heroku will supply automatically
 }

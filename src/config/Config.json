@@ -6,6 +6,9 @@
         "predict-nat": "https://api.nationalize.io/?",
         "predict-gender": "https://api.genderize.io/?",
         "random-act": "https://www.boredapi.com/api/activity",
-        "fact-math": "http://numbersapi.com/random/math"
+        "fact-math": "http://numbersapi.com/random/math",
+        "random-dog": "https://dog.ceo/api/breeds/image/random",
+
+        "countries": "https://api.first.org/data/v1/countries"
     }
 }

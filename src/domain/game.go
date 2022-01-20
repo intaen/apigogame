@@ -2,8 +2,9 @@ package domain
 
 type GameService interface {
 	PredictionByName(string) (*GameName, error)
-	Punishment() (*CheckDare, error)
+	DoYouDare() (*CheckDare, error)
 	CheckFact() (*CheckFact, error)
+	CheckImg() (*CheckImg, error)
 }
 
 type GameRepo interface {
@@ -12,6 +13,7 @@ type GameRepo interface {
 	GetPredictGender(string) (*PredictGender, error)
 	GetRandomActivity() (*RandomActivity, error)
 	GetFactMath() (*FactMath, error)
+	GetRandomImg() (*RandomDogImg, error)
 }
 
 type (
@@ -26,11 +28,15 @@ type (
 	}
 
 	CheckDare struct {
-		RandomActivity string
+		RandomActivity string `json:"random_activity"`
 	}
 
 	CheckFact struct {
-		Fact string
+		Fact string `json:"random_fact"`
+	}
+
+	CheckImg struct {
+		URL string `json:"url"`
 	}
 
 	// API
@@ -41,11 +47,12 @@ type (
 	}
 
 	PredictNationality struct {
-		Name    string          `json:"name"`
-		Country []DetailCountry `json:"country"`
+		Name      string            `json:"name"`
+		Countries []DetailCountries `json:"country"`
 	}
-	DetailCountry struct {
+	DetailCountries struct {
 		CountryID   string  `json:"country_id"`
+		CountryName string  `json:"country_name"`
 		Probability float64 `json:"probability"`
 	}
 
@@ -71,5 +78,10 @@ type (
 		Number int    `json:"number"`
 		Found  bool   `json:"bool"`
 		Type   string `json:"type"`
+	}
+
+	RandomDogImg struct {
+		Message string `json:"message"`
+		Status  string `json:"status"`
 	}
 )
