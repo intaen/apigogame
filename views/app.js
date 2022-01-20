@@ -48,10 +48,24 @@ function submitForm(e) {
       let gender = result.result.predict_gender      
       let nat = ""
       const nats = [];
+
+      // check each country name
       for (let i = 0; i < result.result.predict_nationality.country.length; i++) {
+        // if theres empty country name, skip it
+        if (result.result.predict_nationality.country[i].country_name == "") {
+          continue
+        }
+
+        // add to array so we can join it with separator
         nats.push(result.result.predict_nationality.country[i].country_name);
         nat = nats.join(" / ");
       }
+
+      // if data country not found, replace with new value
+      if (nat == "") {
+        nat = "earth"
+      }
+
       alert("Hi "+name+"! Based on your name, we think you are "+age+" years old.\nWe assume that you are a "+gender+" from "+nat+".")  
     }).catch(function(err) {
     // Failure
