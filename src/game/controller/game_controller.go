@@ -22,6 +22,7 @@ func CreateGameController(r *gin.Engine, gService domain.GameService) {
 		v1.GET("/dare", GameController.Gamev1Dare)
 		v1.GET("/fact", GameController.Gamev1Fact)
 		v1.GET("/img", GameController.Gamev1Img)
+		v1.POST("/joke", GameController.Gamev1Joke)
 	}
 }
 
@@ -36,10 +37,10 @@ func CreateGameController(r *gin.Engine, gService domain.GameService) {
 // @Failure 400 {object} domain.BadRequestResponse
 // @Router /v1/name [post]
 func (g *GameController) Gamev1Name(c *gin.Context) {
-	var input domain.InputGameName
+	var input domain.InputPredictName
 	err := c.ShouldBind(&input)
 	if err != nil {
-		util.HandleError(c, http.StatusBadRequest, "004", "Name can't be empty", err, "Error in BindJSON")
+		util.HandleError(c, http.StatusBadRequest, "004", err.Error(), err, "Error in BindJSON")
 		return
 	}
 
@@ -107,4 +108,36 @@ func (g *GameController) Gamev1Img(c *gin.Context) {
 
 	resp, log := util.ConvertResponse(result)
 	util.HandleSuccess(c, http.StatusOK, "000", "Be happy!", resp, log, "Success")
+}
+
+// Random Joke godoc
+// @Tags Game
+// @Summary Random Joke Game
+// @Description This is API to get random joke
+// @Accept json
+// @Produce json
+// @Param Gamev1 body domain.InputCheckJoke true "Random Joke"
+// @Success 200 {object} domain.SuccessResponse
+// @Failure 400 {object} domain.BadRequestResponse
+// @Router /v1/name [post]
+func (g *GameController) Gamev1Joke(c *gin.Context) {
+	var input domain.InputCheckJoke
+	err := c.ShouldBind(&input)
+	if err != nil {
+		util.HandleError(c, http.StatusBadRequest, "004", err.Error(), err, "Error in BindJSON")
+		return
+	}
+
+	mode := ""
+	if input.SafeMode {
+		mode = "safe-mode"
+	}
+
+	result, err := g.gService.CheckJoke(mode)
+	if err != nil {
+		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in CheckJoke")
+		return
+	}
+	resp, log := util.ConvertResponse(result)
+	util.HandleSuccess(c, http.StatusOK, "000", "Here's the joke!", resp, log, "Success")
 }

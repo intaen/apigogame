@@ -4,6 +4,7 @@ import (
 	"apigogame/src/domain"
 	"apigogame/src/util"
 	"errors"
+	"strings"
 
 	"github.com/go-resty/resty/v2"
 	"github.com/spf13/viper"
@@ -64,7 +65,7 @@ func (g *GameRepoImpl) GetPredictNationality(name string) (*domain.PredictNation
 
 func (g *GameRepoImpl) GetPredictGender(name string) (*domain.PredictGender, error) {
 	// Consume third API
-	client := resty.New()              // Create client
+	client := resty.New()         // Create client
 	var resp domain.PredictGender // Initialize new variable to catch response from 3rd party\
 	res, err := client.R().
 		SetHeader("Content-Type", "application/json").
@@ -107,9 +108,36 @@ func (g *GameRepoImpl) GetRandomActivity() (*domain.RandomActivity, error) {
 	return nil, nil
 }
 
+func (g *GameRepoImpl) GetRandomFact() (*domain.RandomFact, error) {
+	// Consume third API
+	client := resty.New()      // Create client
+	var resp domain.RandomFact // Initialize new variable to catch response from 3rd party\
+	res, err := client.R().
+		SetHeader("Content-Type", "application/json").
+		SetResult(&resp).
+		Get(viper.GetString("url.fact-random"))
+	if strings.Contains(string(res.Body()), "base64") {
+		resp.Dark = resp.Dark[:50]
+		resp.Light = resp.Light[:50]
+		resp.Primary = resp.Primary[:50]
+	}
+	util.Log3rdParty(res.Request.Method, res.Request.URL, "", resp)
+	if err != nil {
+		return nil, err
+	}
+
+	if res.IsError() {
+		return nil, errors.New("data not found")
+	} else if res.IsSuccess() {
+		return &resp, nil
+	}
+
+	return nil, nil
+}
+
 func (g *GameRepoImpl) GetFactMath() (*domain.FactMath, error) {
 	// Consume third API
-	client := resty.New()          // Create client
+	client := resty.New()    // Create client
 	var resp domain.FactMath // Initialize new variable to catch response from 3rd party\
 	res, err := client.R().
 		SetHeader("Content-Type", "application/json").
@@ -129,14 +157,102 @@ func (g *GameRepoImpl) GetFactMath() (*domain.FactMath, error) {
 	return nil, nil
 }
 
-func (g *GameRepoImpl) GetRandomImg() (*domain.RandomDogImg, error) {
+func (g *GameRepoImpl) GetFactDog() ([]domain.FactDog, error) {
 	// Consume third API
-	client := resty.New()          // Create client
+	client := resty.New()     // Create client
+	var resp []domain.FactDog // Initialize new variable to catch response from 3rd party
+	res, err := client.R().
+		SetHeader("Content-Type", "application/json").
+		SetResult(&resp).
+		Get(viper.GetString("url.fact-dog"))
+	util.Log3rdParty(res.Request.Method, res.Request.URL, "", string(res.Body()))
+	if err != nil {
+		return nil, err
+	}
+
+	if res.IsError() {
+		return nil, errors.New("data not found")
+	} else if res.IsSuccess() {
+		return resp, nil
+	}
+
+	return nil, nil
+}
+
+func (g *GameRepoImpl) GetDogImg() (*domain.RandomDogImg, error) {
+	// Consume third API
+	client := resty.New()        // Create client
 	var resp domain.RandomDogImg // Initialize new variable to catch response from 3rd party\
 	res, err := client.R().
 		SetHeader("Content-Type", "application/json").
 		SetResult(&resp).
 		Get(viper.GetString("url.random-dog"))
+	util.Log3rdParty(res.Request.Method, res.Request.URL, "", string(res.Body()))
+	if err != nil {
+		return nil, err
+	}
+
+	if res.IsError() {
+		return nil, errors.New("data not found")
+	} else if res.IsSuccess() {
+		return &resp, nil
+	}
+
+	return nil, nil
+}
+
+func (g *GameRepoImpl) GetCatImg() (*domain.RandomCatImg, error) {
+	// Consume third API
+	client := resty.New()        // Create client
+	var resp domain.RandomCatImg // Initialize new variable to catch response from 3rd party\
+	res, err := client.R().
+		SetHeader("Content-Type", "application/json").
+		SetResult(&resp).
+		Get(viper.GetString("url.random-cat"))
+	util.Log3rdParty(res.Request.Method, res.Request.URL, "", string(res.Body()))
+	if err != nil {
+		return nil, err
+	}
+
+	if res.IsError() {
+		return nil, errors.New("data not found")
+	} else if res.IsSuccess() {
+		return &resp, nil
+	}
+
+	return nil, nil
+}
+
+func (g *GameRepoImpl) GetDuckImg() (*domain.RandomDuckImg, error) {
+	// Consume third API
+	client := resty.New()         // Create client
+	var resp domain.RandomDuckImg // Initialize new variable to catch response from 3rd party\
+	res, err := client.R().
+		SetHeader("Content-Type", "application/json").
+		SetResult(&resp).
+		Get(viper.GetString("url.random-duck"))
+	util.Log3rdParty(res.Request.Method, res.Request.URL, "", string(res.Body()))
+	if err != nil {
+		return nil, err
+	}
+
+	if res.IsError() {
+		return nil, errors.New("data not found")
+	} else if res.IsSuccess() {
+		return &resp, nil
+	}
+
+	return nil, nil
+}
+
+func (g *GameRepoImpl) GetRandomJoke(mode string) (*domain.RandomJoke, error) {
+	// Consume third API
+	client := resty.New()      // Create client
+	var resp domain.RandomJoke // Initialize new variable to catch response from 3rd party
+	res, err := client.R().
+		SetHeader("Content-Type", "application/json").
+		SetResult(&resp).
+		Get(viper.GetString("url.random-joke") + mode)
 	util.Log3rdParty(res.Request.Method, res.Request.URL, "", string(res.Body()))
 	if err != nil {
 		return nil, err

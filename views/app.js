@@ -36,7 +36,7 @@ function submitForm(e) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        "Name": name,
+        "name": name,
       })
     }).then(function(response) {
       return response.json();
@@ -129,7 +129,7 @@ function createPageFact() {
           <h2>Did You Know?</h2>
         </div>
         <div class="menu">
-        <button onclick="checkFact(event)">Check it out</button>
+        <button onclick="checkFact(event)">Check it out!</button>
         </div>
     </body></html>`);
 }
@@ -157,12 +157,12 @@ function checkFact(e) {
     });
 }
 
-// Img
-function createPageImg() {
+// Fun
+function createPageFun() {
   var opened = window.open("");
   opened.document.write(`<html>
   <head>
-      <title>Today Image</title>
+      <title>Today Fun</title>
       <link rel="stylesheet" href="/css/style.css"/>
       <script src="app.js"></script>
   </head>
@@ -171,7 +171,8 @@ function createPageImg() {
         <h2>Have a Nice Day!</h2>
       </div>
       <div class="menu">
-      <button onclick="getImg(event)">Don't stop clicking</button>
+      <button onclick="getImg(event)">A feast for the eyes (keep clicking!)</button><br><br>
+      <button onclick="checkJoke(event)">LOL</button>
       </div>
       <div class="space"></div>
   </body></html>`);
@@ -192,6 +193,49 @@ function getImg(e) {
   let result = JSON.parse(response)
   let url = result.result.url
   showImg(url, 311, 311, "Wish you happiness!")
+  }).catch(function(err) {
+  // Failure
+    alert('Error: '+err)
+  });
+}
+function checkJoke(e) {
+  alert("Wait a minute...");
+
+  e.preventDefault();
+
+  fetch('/game/v1/joke', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "safe_mode": false,
+    })
+  }).then(function(response) {
+    return response.json();
+  }).then(function(data) {
+  // Success code goes here
+  let response = JSON.stringify(data)
+  let result = JSON.parse(response)
+  let cat = result.result.category
+  let joke = result.result.random_joke
+  let flag = ""
+  const flags = [];
+
+  // check flags safe, if it false, get flags that are true and show it to front
+  if (!result.result.flags.safe) {
+    let key = Object.keys(result.result.flags);
+    for (let i = 0; i < key.length; i++) {
+        if (key[i]=="safe") {
+          continue
+        }
+      flags.push(key[i])
+      flag = flags.join(", ");
+    }
+    alert("WARNING!\nCONTAINS "+flag.toUpperCase())
+  }
+
+  alert("["+cat+"]"+"\n"+joke) 
   }).catch(function(err) {
   // Failure
     alert('Error: '+err)
