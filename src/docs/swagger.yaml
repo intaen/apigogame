@@ -18,6 +18,12 @@ definitions:
         example: Admin
         type: string
     type: object
+  domain.InputCheckJoke:
+    properties:
+      safe_mode:
+        example: false
+        type: boolean
+    type: object
   domain.SuccessResponse:
     properties:
       code:
@@ -34,14 +40,14 @@ info:
   contact:
     email: intanmarsjaf@outlook.com
     name: Developer
-  description: This page is API documentation for a little game like predict age by
-    name
+  description: This page is API documentation for a little game like predict age,
+    gender by name, get random fact, image, joke
   title: GOGAME
   version: "1.0"
 paths:
   /v1/dare:
     get:
-      description: This is API to get get random activity
+      description: This is API to get random activity
       produces:
       - application/json
       responses:
@@ -53,12 +59,12 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/domain.BadRequestResponse'
-      summary: Game of Shows Random Activity
+      summary: Random Activity Game
       tags:
       - Game
   /v1/fact:
     get:
-      description: This is API to get get fact about math
+      description: This is API to get random fact
       produces:
       - application/json
       responses:
@@ -70,21 +76,38 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/domain.BadRequestResponse'
-      summary: Game of Fact Math
+      summary: Fact Game
+      tags:
+      - Game
+  /v1/img:
+    get:
+      description: This is API to get random image
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.BadRequestResponse'
+      summary: Random Image Game
       tags:
       - Game
   /v1/name:
     post:
       consumes:
       - application/json
-      description: This is API to get prediction from name input by user
+      description: This is API to get random joke
       parameters:
-      - description: Name Prediction
+      - description: Random Joke
         in: body
         name: Gamev1
         required: true
         schema:
-          $ref: '#/definitions/domain.ExampleGameName'
+          $ref: '#/definitions/domain.InputCheckJoke'
       produces:
       - application/json
       responses:
@@ -96,7 +119,7 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/domain.BadRequestResponse'
-      summary: Game of Name Prediction
+      summary: Random Joke Game
       tags:
       - Game
 schemes:

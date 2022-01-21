@@ -28,14 +28,14 @@ var doc = `{
     "paths": {
         "/v1/dare": {
             "get": {
-                "description": "This is API to get get random activity",
+                "description": "This is API to get random activity",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Game"
                 ],
-                "summary": "Game of Shows Random Activity",
+                "summary": "Random Activity Game",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -54,14 +54,40 @@ var doc = `{
         },
         "/v1/fact": {
             "get": {
-                "description": "This is API to get get fact about math",
+                "description": "This is API to get random fact",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Game"
                 ],
-                "summary": "Game of Fact Math",
+                "summary": "Fact Game",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/domain.BadRequestResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/img": {
+            "get": {
+                "description": "This is API to get random image",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Game"
+                ],
+                "summary": "Random Image Game",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -80,7 +106,7 @@ var doc = `{
         },
         "/v1/name": {
             "post": {
-                "description": "This is API to get prediction from name input by user",
+                "description": "This is API to get random joke",
                 "consumes": [
                     "application/json"
                 ],
@@ -90,15 +116,15 @@ var doc = `{
                 "tags": [
                     "Game"
                 ],
-                "summary": "Game of Name Prediction",
+                "summary": "Random Joke Game",
                 "parameters": [
                     {
-                        "description": "Name Prediction",
+                        "description": "Random Joke",
                         "name": "Gamev1",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.ExampleGameName"
+                            "$ref": "#/definitions/domain.InputCheckJoke"
                         }
                     }
                 ],
@@ -146,6 +172,15 @@ var doc = `{
                 }
             }
         },
+        "domain.InputCheckJoke": {
+            "type": "object",
+            "properties": {
+                "safe_mode": {
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
         "domain.SuccessResponse": {
             "type": "object",
             "properties": {
@@ -181,7 +216,7 @@ var SwaggerInfo = swaggerInfo{
 	BasePath:    "/game",
 	Schemes:     []string{"http"},
 	Title:       "GOGAME",
-	Description: "This page is API documentation for a little game like predict age by name",
+	Description: "This page is API documentation for a little game like predict age, gender by name, get random fact, image, joke",
 }
 
 type s struct{}

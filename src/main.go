@@ -20,8 +20,6 @@ import (
 	_ "apigogame/src/docs"
 )
 
-// swagger to heroku
-// new api for random fact&img
 func init() {
 	viper.SetConfigFile("src/config/Config.json")
 	err := viper.ReadInConfig()
@@ -32,7 +30,7 @@ func init() {
 
 // @title GOGAME
 // @version 1.0
-// @description This page is API documentation for a little game like predict age by name
+// @description This page is API documentation for a little game like predict age, gender by name, get random fact, image, joke
 // @schemes http
 // @host localhost:1111
 // @BasePath /game
