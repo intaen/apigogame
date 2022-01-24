@@ -87,14 +87,14 @@ func (g *GameServiceImpl) FindRandomFact() (*domain.RandomFact, error) {
 		return nil, err
 	}
 
-	// Get fact abt dog
-	dog, err := g.gRepo.GetFactDog()
-	if err != nil {
-		return nil, err
-	}
+	// // Get fact abt dog
+	// dog, err := g.gRepo.GetFactDog()
+	// if err != nil {
+	// 	return nil, err
+	// }
 
 	// Add facts to array to randomize
-	facts = append(facts, fun.Text, math.Text, dog[0].Fact)
+	facts = append(facts, fun.Text, math.Text)
 	fact := util.RandomData(facts)
 
 	// Create response as needed
