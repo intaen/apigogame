@@ -1,4 +1,3 @@
-basePath: /game
 definitions:
   domain.BadRequestResponse:
     properties:
@@ -12,15 +11,15 @@ definitions:
         example: "null"
         type: string
     type: object
-  domain.ExampleGameName:
+  domain.ExamplePredictName:
     properties:
-      Name:
+      name:
         example: Admin
         type: string
     type: object
-  domain.InputCheckJoke:
+  domain.InputRandomJoke:
     properties:
-      safe_mode:
+      is_safe:
         example: false
         type: boolean
     type: object
@@ -45,7 +44,7 @@ info:
   title: GOGAME
   version: "1.0"
 paths:
-  /v1/dare:
+  /game/v1/dare:
     get:
       description: This is API to get random activity
       produces:
@@ -59,10 +58,10 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/domain.BadRequestResponse'
-      summary: Random Activity Game
+      summary: Random Activity
       tags:
       - Game
-  /v1/fact:
+  /game/v1/fact:
     get:
       description: This is API to get random fact
       produces:
@@ -76,10 +75,10 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/domain.BadRequestResponse'
-      summary: Fact Game
+      summary: Random Fact
       tags:
       - Game
-  /v1/img:
+  /game/v1/img:
     get:
       description: This is API to get random image
       produces:
@@ -93,21 +92,21 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/domain.BadRequestResponse'
-      summary: Random Image Game
+      summary: Random Image
       tags:
       - Game
-  /v1/name:
+  /game/v1/joke:
     post:
       consumes:
       - application/json
       description: This is API to get random joke
       parameters:
-      - description: Random Joke
+      - description: Body
         in: body
-        name: Gamev1
+        name: domain.InputRandomJoke
         required: true
         schema:
-          $ref: '#/definitions/domain.InputCheckJoke'
+          $ref: '#/definitions/domain.InputRandomJoke'
       produces:
       - application/json
       responses:
@@ -119,9 +118,91 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/domain.BadRequestResponse'
-      summary: Random Joke Game
+      summary: Random Joke
       tags:
       - Game
+  /game/v1/predict:
+    post:
+      consumes:
+      - application/json
+      description: This is API to get prediction from name input by user
+      parameters:
+      - description: Body
+        in: body
+        name: domain.ExamplePredictName
+        required: true
+        schema:
+          $ref: '#/definitions/domain.ExamplePredictName'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.BadRequestResponse'
+      summary: Prediction By Name
+      tags:
+      - Game
+  /master/api:
+    get:
+      consumes:
+      - application/json
+      description: This is API to get list of public API by auth or category
+      parameters:
+      - description: Params 1
+        in: query
+        name: auth
+        type: boolean
+      - description: Params 2
+        in: query
+        name: category
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.BadRequestResponse'
+      summary: List Public API
+      tags:
+      - Master Data
+  /master/country:
+    get:
+      consumes:
+      - application/json
+      description: This is API to get list country by country id or region
+      parameters:
+      - description: Params 1
+        in: query
+        name: id
+        type: string
+      - description: Params 2
+        in: query
+        name: region
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.BadRequestResponse'
+      summary: List Country
+      tags:
+      - Master Data
 schemes:
 - http
 swagger: "2.0"

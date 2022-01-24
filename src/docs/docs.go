@@ -26,7 +26,7 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/v1/dare": {
+        "/game/v1/dare": {
             "get": {
                 "description": "This is API to get random activity",
                 "produces": [
@@ -35,7 +35,7 @@ var doc = `{
                 "tags": [
                     "Game"
                 ],
-                "summary": "Random Activity Game",
+                "summary": "Random Activity",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -52,7 +52,7 @@ var doc = `{
                 }
             }
         },
-        "/v1/fact": {
+        "/game/v1/fact": {
             "get": {
                 "description": "This is API to get random fact",
                 "produces": [
@@ -61,7 +61,7 @@ var doc = `{
                 "tags": [
                     "Game"
                 ],
-                "summary": "Fact Game",
+                "summary": "Random Fact",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -78,7 +78,7 @@ var doc = `{
                 }
             }
         },
-        "/v1/img": {
+        "/game/v1/img": {
             "get": {
                 "description": "This is API to get random image",
                 "produces": [
@@ -87,7 +87,7 @@ var doc = `{
                 "tags": [
                     "Game"
                 ],
-                "summary": "Random Image Game",
+                "summary": "Random Image",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -104,7 +104,7 @@ var doc = `{
                 }
             }
         },
-        "/v1/name": {
+        "/game/v1/joke": {
             "post": {
                 "description": "This is API to get random joke",
                 "consumes": [
@@ -116,16 +116,142 @@ var doc = `{
                 "tags": [
                     "Game"
                 ],
-                "summary": "Random Joke Game",
+                "summary": "Random Joke",
                 "parameters": [
                     {
-                        "description": "Random Joke",
-                        "name": "Gamev1",
+                        "description": "Body",
+                        "name": "domain.InputRandomJoke",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.InputCheckJoke"
+                            "$ref": "#/definitions/domain.InputRandomJoke"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/domain.BadRequestResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/game/v1/predict": {
+            "post": {
+                "description": "This is API to get prediction from name input by user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Game"
+                ],
+                "summary": "Prediction By Name",
+                "parameters": [
+                    {
+                        "description": "Body",
+                        "name": "domain.ExamplePredictName",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.ExamplePredictName"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/domain.BadRequestResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/master/api": {
+            "get": {
+                "description": "This is API to get list of public API by auth or category",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Master Data"
+                ],
+                "summary": "List Public API",
+                "parameters": [
+                    {
+                        "type": "boolean",
+                        "description": "Params 1",
+                        "name": "auth",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Params 2",
+                        "name": "category",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/domain.BadRequestResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/master/country": {
+            "get": {
+                "description": "This is API to get list country by country id or region",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Master Data"
+                ],
+                "summary": "List Country",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Params 1",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Params 2",
+                        "name": "region",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -163,19 +289,19 @@ var doc = `{
                 }
             }
         },
-        "domain.ExampleGameName": {
+        "domain.ExamplePredictName": {
             "type": "object",
             "properties": {
-                "Name": {
+                "name": {
                     "type": "string",
                     "example": "Admin"
                 }
             }
         },
-        "domain.InputCheckJoke": {
+        "domain.InputRandomJoke": {
             "type": "object",
             "properties": {
-                "safe_mode": {
+                "is_safe": {
                     "type": "boolean",
                     "example": false
                 }
@@ -213,7 +339,7 @@ type swaggerInfo struct {
 var SwaggerInfo = swaggerInfo{
 	Version:     "1.0",
 	Host:        "localhost:1111",
-	BasePath:    "/game",
+	BasePath:    "",
 	Schemes:     []string{"http"},
 	Title:       "GOGAME",
 	Description: "This page is API documentation for a little game like predict age, gender by name, get random fact, image, joke",

@@ -4,6 +4,7 @@ import (
 	gc "apigogame/src/game/controller"
 	gr "apigogame/src/game/repo"
 	gs "apigogame/src/game/service"
+	mc "apigogame/src/masterdata/controller"
 	mdr "apigogame/src/masterdata/repo"
 	mds "apigogame/src/masterdata/service"
 	"apigogame/src/util"
@@ -33,7 +34,6 @@ func init() {
 // @description This page is API documentation for a little game like predict age, gender by name, get random fact, image, joke
 // @schemes http
 // @host localhost:1111
-// @BasePath /game
 // @contact.name Developer
 // @contact.email intanmarsjaf@outlook.com
 func main() {
@@ -64,8 +64,9 @@ func main() {
 	gService := gs.CreateGameServiceImpl(gRepo, mdService)
 
 	// Initiate Controller
+	mc.CreateMasterDataController(r, mdService)
 	gc.CreateGameController(r, gService)
 
-	// r.Run(":" + viper.GetString("port"))
-	r.Run() // Heroku will supply automatically
+	r.Run(":" + viper.GetString("port"))
+	// r.Run() // Heroku will supply automatically
 }

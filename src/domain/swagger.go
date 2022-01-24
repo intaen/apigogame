@@ -24,7 +24,7 @@ type (
 	}
 
 	// Input example swagger
-	ExampleGameName struct {
-		Name string `json:"Name" example:"Admin"`
+	ExamplePredictName struct {
+		Name string `json:"name" example:"Admin"`
 	}
 )

@@ -30,7 +30,7 @@ function submitForm(e) {
     alert("Hi "+name+"! Wait a minute...");
     e.preventDefault();
 
-    fetch('/game/v1/name', {
+    fetch('/game/v1/predict', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -209,7 +209,7 @@ function checkJoke(e) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      "safe_mode": false,
+      "is_safe": false,
     })
   }).then(function(response) {
     return response.json();
@@ -231,6 +231,9 @@ function checkJoke(e) {
         }
       flags.push(key[i])
       flag = flags.join(", ");
+    }
+    if (flag == "") {
+      flag = "STRONG LANGUAGE"
     }
     alert("WARNING!\nCONTAINS "+flag.toUpperCase())
   }

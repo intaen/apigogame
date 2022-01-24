@@ -15,6 +15,6 @@
         "random-joke": "https://v2.jokeapi.dev/joke/Any?",
 
         "countries": "https://api.first.org/data/v1/countries",
-        "public-api": "https://api.publicapis.org/entries"
+        "public-apis": "https://api.publicapis.org/entries"
     }
 }

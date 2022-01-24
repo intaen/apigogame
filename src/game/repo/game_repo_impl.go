@@ -86,10 +86,10 @@ func (g *GameRepoImpl) GetPredictGender(name string) (*domain.PredictGender, err
 	return nil, nil
 }
 
-func (g *GameRepoImpl) GetRandomActivity() (*domain.RandomActivity, error) {
+func (g *GameRepoImpl) GetBoredActivity() (*domain.BoredActivity, error) {
 	// Consume third API
-	client := resty.New()          // Create client
-	var resp domain.RandomActivity // Initialize new variable to catch response from 3rd party\
+	client := resty.New()         // Create client
+	var resp domain.BoredActivity // Initialize new variable to catch response from 3rd party\
 	res, err := client.R().
 		SetHeader("Content-Type", "application/json").
 		SetResult(&resp).
@@ -108,10 +108,10 @@ func (g *GameRepoImpl) GetRandomActivity() (*domain.RandomActivity, error) {
 	return nil, nil
 }
 
-func (g *GameRepoImpl) GetRandomFact() (*domain.RandomFact, error) {
+func (g *GameRepoImpl) GetFunFact() (*domain.FactFun, error) {
 	// Consume third API
-	client := resty.New()      // Create client
-	var resp domain.RandomFact // Initialize new variable to catch response from 3rd party\
+	client := resty.New()   // Create client
+	var resp domain.FactFun // Initialize new variable to catch response from 3rd party\
 	res, err := client.R().
 		SetHeader("Content-Type", "application/json").
 		SetResult(&resp).
@@ -179,10 +179,10 @@ func (g *GameRepoImpl) GetFactDog() ([]domain.FactDog, error) {
 	return nil, nil
 }
 
-func (g *GameRepoImpl) GetDogImg() (*domain.RandomDogImg, error) {
+func (g *GameRepoImpl) GetDogImg() (*domain.ImgDog, error) {
 	// Consume third API
-	client := resty.New()        // Create client
-	var resp domain.RandomDogImg // Initialize new variable to catch response from 3rd party\
+	client := resty.New()  // Create client
+	var resp domain.ImgDog // Initialize new variable to catch response from 3rd party\
 	res, err := client.R().
 		SetHeader("Content-Type", "application/json").
 		SetResult(&resp).
@@ -201,10 +201,10 @@ func (g *GameRepoImpl) GetDogImg() (*domain.RandomDogImg, error) {
 	return nil, nil
 }
 
-func (g *GameRepoImpl) GetCatImg() (*domain.RandomCatImg, error) {
+func (g *GameRepoImpl) GetCatImg() (*domain.ImgCat, error) {
 	// Consume third API
-	client := resty.New()        // Create client
-	var resp domain.RandomCatImg // Initialize new variable to catch response from 3rd party\
+	client := resty.New()  // Create client
+	var resp domain.ImgCat // Initialize new variable to catch response from 3rd party\
 	res, err := client.R().
 		SetHeader("Content-Type", "application/json").
 		SetResult(&resp).
@@ -223,10 +223,10 @@ func (g *GameRepoImpl) GetCatImg() (*domain.RandomCatImg, error) {
 	return nil, nil
 }
 
-func (g *GameRepoImpl) GetDuckImg() (*domain.RandomDuckImg, error) {
+func (g *GameRepoImpl) GetDuckImg() (*domain.ImgDuck, error) {
 	// Consume third API
-	client := resty.New()         // Create client
-	var resp domain.RandomDuckImg // Initialize new variable to catch response from 3rd party\
+	client := resty.New()   // Create client
+	var resp domain.ImgDuck // Initialize new variable to catch response from 3rd party\
 	res, err := client.R().
 		SetHeader("Content-Type", "application/json").
 		SetResult(&resp).
@@ -245,10 +245,10 @@ func (g *GameRepoImpl) GetDuckImg() (*domain.RandomDuckImg, error) {
 	return nil, nil
 }
 
-func (g *GameRepoImpl) GetRandomJoke(mode string) (*domain.RandomJoke, error) {
+func (g *GameRepoImpl) GetRandomJoke(mode string) (*domain.AnyJoke, error) {
 	// Consume third API
-	client := resty.New()      // Create client
-	var resp domain.RandomJoke // Initialize new variable to catch response from 3rd party
+	client := resty.New()   // Create client
+	var resp domain.AnyJoke // Initialize new variable to catch response from 3rd party
 	res, err := client.R().
 		SetHeader("Content-Type", "application/json").
 		SetResult(&resp).

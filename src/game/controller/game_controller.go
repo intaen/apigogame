@@ -14,29 +14,27 @@ type GameController struct {
 
 func CreateGameController(r *gin.Engine, gService domain.GameService) {
 	GameController := GameController{gService: gService}
-
-	// JSON
 	v1 := r.Group("/game/v1")
 	{
-		v1.POST("/name", GameController.Gamev1Name)
-		v1.GET("/dare", GameController.Gamev1Dare)
-		v1.GET("/fact", GameController.Gamev1Fact)
-		v1.GET("/img", GameController.Gamev1Img)
-		v1.POST("/joke", GameController.Gamev1Joke)
+		v1.POST("/predict", GameController.GetPredictionByName)
+		v1.GET("/dare", GameController.GetRandomActivity)
+		v1.GET("/fact", GameController.GetRandomFact)
+		v1.GET("/img", GameController.GetRandomImage)
+		v1.POST("/joke", GameController.GetRandomJoke)
 	}
 }
 
-// Name Prediction godoc
+// Get Prediction By Name godoc
 // @Tags Game
-// @Summary Prediction Game
+// @Summary Prediction By Name
 // @Description This is API to get prediction from name input by user
 // @Accept json
 // @Produce json
-// @Param Gamev1 body domain.ExampleGameName true "Name Prediction"
+// @Param domain.ExamplePredictName body domain.ExamplePredictName true "Body"
 // @Success 200 {object} domain.SuccessResponse
 // @Failure 400 {object} domain.BadRequestResponse
-// @Router /v1/name [post]
-func (g *GameController) Gamev1Name(c *gin.Context) {
+// @Router /game/v1/predict [post]
+func (g *GameController) GetPredictionByName(c *gin.Context) {
 	var input domain.InputPredictName
 	err := c.ShouldBind(&input)
 	if err != nil {
@@ -44,27 +42,27 @@ func (g *GameController) Gamev1Name(c *gin.Context) {
 		return
 	}
 
-	result, err := g.gService.PredictionByName(input.Name)
+	result, err := g.gService.FindPredictionByName(input.Name)
 	if err != nil {
-		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in PredictionByName")
+		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in FindPredictionByName")
 		return
 	}
 	resp, log := util.ConvertResponse(result)
 	util.HandleSuccess(c, http.StatusOK, "000", "Hello "+input.Name+"!", resp, log, "Success")
 }
 
-// Random Activity godoc
+// Get Random Activity godoc
 // @Tags Game
-// @Summary Random Activity Game
+// @Summary Random Activity
 // @Description This is API to get random activity
 // @Produce json
 // @Success 200 {object} domain.SuccessResponse
 // @Failure 400 {object} domain.BadRequestResponse
-// @Router /v1/dare [get]
-func (g *GameController) Gamev1Dare(c *gin.Context) {
-	result, err := g.gService.DoYouDare()
+// @Router /game/v1/dare [get]
+func (g *GameController) GetRandomActivity(c *gin.Context) {
+	result, err := g.gService.FindRandomActivity()
 	if err != nil {
-		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in DoYouDare")
+		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in FindRandomActivity")
 		return
 	}
 
@@ -72,18 +70,18 @@ func (g *GameController) Gamev1Dare(c *gin.Context) {
 	util.HandleSuccess(c, http.StatusOK, "000", "Here's your dare!", resp, log, "Success")
 }
 
-// Fact Check godoc
+// Get Random Fact godoc
 // @Tags Game
-// @Summary Fact Game
+// @Summary Random Fact
 // @Description This is API to get random fact
 // @Produce json
 // @Success 200 {object} domain.SuccessResponse
 // @Failure 400 {object} domain.BadRequestResponse
-// @Router /v1/fact [get]
-func (g *GameController) Gamev1Fact(c *gin.Context) {
-	result, err := g.gService.CheckFact()
+// @Router /game/v1/fact [get]
+func (g *GameController) GetRandomFact(c *gin.Context) {
+	result, err := g.gService.FindRandomFact()
 	if err != nil {
-		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in CheckFact")
+		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in FindRandomFact")
 		return
 	}
 
@@ -91,18 +89,18 @@ func (g *GameController) Gamev1Fact(c *gin.Context) {
 	util.HandleSuccess(c, http.StatusOK, "000", "Here's today fact!", resp, log, "Success")
 }
 
-// Random Image godoc
+// Get Random Image godoc
 // @Tags Game
-// @Summary Random Image Game
+// @Summary Random Image
 // @Description This is API to get random image
 // @Produce json
 // @Success 200 {object} domain.SuccessResponse
 // @Failure 400 {object} domain.BadRequestResponse
-// @Router /v1/img [get]
-func (g *GameController) Gamev1Img(c *gin.Context) {
-	result, err := g.gService.CheckImg()
+// @Router /game/v1/img [get]
+func (g *GameController) GetRandomImage(c *gin.Context) {
+	result, err := g.gService.FindRandomImage()
 	if err != nil {
-		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in CheckImg")
+		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in FindRandomImage")
 		return
 	}
 
@@ -110,32 +108,27 @@ func (g *GameController) Gamev1Img(c *gin.Context) {
 	util.HandleSuccess(c, http.StatusOK, "000", "Be happy!", resp, log, "Success")
 }
 
-// Random Joke godoc
+// Get Random Joke godoc
 // @Tags Game
-// @Summary Random Joke Game
+// @Summary Random Joke
 // @Description This is API to get random joke
 // @Accept json
 // @Produce json
-// @Param Gamev1 body domain.InputCheckJoke true "Random Joke"
+// @Param domain.InputRandomJoke body domain.InputRandomJoke true "Body"
 // @Success 200 {object} domain.SuccessResponse
 // @Failure 400 {object} domain.BadRequestResponse
-// @Router /v1/name [post]
-func (g *GameController) Gamev1Joke(c *gin.Context) {
-	var input domain.InputCheckJoke
+// @Router /game/v1/joke [post]
+func (g *GameController) GetRandomJoke(c *gin.Context) {
+	var input domain.InputRandomJoke
 	err := c.ShouldBind(&input)
 	if err != nil {
 		util.HandleError(c, http.StatusBadRequest, "004", err.Error(), err, "Error in BindJSON")
 		return
 	}
 
-	mode := ""
-	if input.SafeMode {
-		mode = "safe-mode"
-	}
-
-	result, err := g.gService.CheckJoke(mode)
+	result, err := g.gService.FindRandomJoke(input.IsSafe)
 	if err != nil {
-		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in CheckJoke")
+		util.HandleSuccess(c, http.StatusOK, "001", err.Error(), nil, err, "Error in FindRandomJoke")
 		return
 	}
 	resp, log := util.ConvertResponse(result)

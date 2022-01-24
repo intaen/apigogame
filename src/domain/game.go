@@ -1,55 +1,56 @@
 package domain
 
 type GameService interface {
-	PredictionByName(string) (*PredictName, error)
-	DoYouDare() (*CheckDare, error)
-	CheckFact() (*CheckFact, error)
-	CheckImg() (*CheckImg, error)
-	CheckJoke(string) (*CheckJoke, error)
+	FindPredictionByName(string) (*PredictName, error)
+	FindRandomActivity() (*RandomActivity, error)
+	FindRandomFact() (*RandomFact, error)
+	FindRandomImage() (*RandomImg, error)
+	FindRandomJoke(bool) (*RandomJoke, error)
 }
 
 type GameRepo interface {
 	GetPredictAge(string) (*PredictAge, error)
 	GetPredictNationality(string) (*PredictNationality, error)
 	GetPredictGender(string) (*PredictGender, error)
-	GetRandomActivity() (*RandomActivity, error)
-	GetRandomFact() (*RandomFact, error)
+	GetBoredActivity() (*BoredActivity, error)
+	GetFunFact() (*FactFun, error)
 	GetFactMath() (*FactMath, error)
 	GetFactDog() ([]FactDog, error)
-	GetDogImg() (*RandomDogImg, error)
-	GetCatImg() (*RandomCatImg, error)
-	GetDuckImg() (*RandomDuckImg, error)
-	GetRandomJoke(mode string) (*RandomJoke, error)
+	GetDogImg() (*ImgDog, error)
+	GetCatImg() (*ImgCat, error)
+	GetDuckImg() (*ImgDuck, error)
+	GetRandomJoke(mode string) (*AnyJoke, error)
 }
 
 type (
+	// Prediction
 	InputPredictName struct {
 		Name string `form:"name" json:"name" binding:"required"`
 	}
-
 	PredictName struct {
 		PredictAge         int         `json:"predict_age"`
 		PredictNationality interface{} `json:"predict_nationality"`
 		PredictGender      string      `json:"predict_gender"`
 	}
 
-	CheckDare struct {
+	// Dare or Dare
+	RandomActivity struct {
 		RandomActivity string `json:"random_activity"`
 	}
 
-	CheckFact struct {
+	// Today Fact
+	RandomFact struct {
 		Fact string `json:"random_fact"`
 	}
 
-	CheckImg struct {
+	// Today Fun
+	RandomImg struct {
 		URL string `json:"url"`
 	}
-
-	InputCheckJoke struct {
-		SafeMode bool `json:"safe_mode" example:"false"`
+	InputRandomJoke struct {
+		IsSafe bool `json:"is_safe" example:"false"`
 	}
-
-	CheckJoke struct {
+	RandomJoke struct {
 		Category string     `json:"category"`
 		Joke     string     `json:"random_joke"`
 		Flags    DetailFlag `json:"flags"`
@@ -79,7 +80,7 @@ type (
 		Count       int     `json:"count"`
 	}
 
-	RandomActivity struct {
+	BoredActivity struct {
 		Activity      string  `json:"activity"`
 		Type          string  `json:"type"`
 		Participants  int     `json:"participants"`
@@ -89,7 +90,7 @@ type (
 		Accessibility float32 `json:"accessibility"`
 	}
 
-	RandomFact struct {
+	FactFun struct {
 		Text    string `json:"text"`
 		Light   string `json:"light"`
 		Dark    string `json:"dark"`
@@ -107,12 +108,12 @@ type (
 		Fact string `json:"fact"`
 	}
 
-	RandomDogImg struct {
+	ImgDog struct {
 		Message string `json:"message"`
 		Status  string `json:"status"`
 	}
 
-	RandomCatImg struct {
+	ImgCat struct {
 		ID     int     `json:"id"`
 		URL    string  `json:"url"`
 		WEBURL string  `json:"webpurl"`
@@ -120,12 +121,12 @@ type (
 		Y      float64 `json:"y"`
 	}
 
-	RandomDuckImg struct {
+	ImgDuck struct {
 		Message string `json:"message"`
 		URL     string `json:"url"`
 	}
 
-	RandomJoke struct {
+	AnyJoke struct {
 		Error    bool       `json:"error"`
 		Category string     `json:"category"`
 		Type     string     `json:"type"`
