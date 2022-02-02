@@ -127,7 +127,9 @@ func (g *GameRepoImpl) GetFunFact() (*domain.FactFun, error) {
 	}
 
 	if res.IsError() {
-		return nil, errors.New("data not found")
+		resp.Text = "High heels were originally worn by men"
+		util.LogError("data not found", "GetFunFact IsError")
+		return &resp, nil
 	} else if res.IsSuccess() {
 		return &resp, nil
 	}
@@ -149,7 +151,9 @@ func (g *GameRepoImpl) GetFactMath() (*domain.FactMath, error) {
 	}
 
 	if res.IsError() {
-		return nil, errors.New("data not found")
+		resp.Text = "The bowler hat was invented as safety measure"
+		util.LogError("data not found", "GetFactMath IsError")
+		return &resp, nil
 	} else if res.IsSuccess() {
 		return &resp, nil
 	}
@@ -171,7 +175,9 @@ func (g *GameRepoImpl) GetFactDog() ([]domain.FactDog, error) {
 	}
 
 	if res.IsError() {
-		return nil, errors.New("data not found")
+		resp[0].Fact = "Some cats are actually allergic to humans"
+		util.LogError("data not found", "GetFactDog IsError")
+		return resp, nil
 	} else if res.IsSuccess() {
 		return resp, nil
 	}
@@ -193,7 +199,9 @@ func (g *GameRepoImpl) GetDogImg() (*domain.ImgDog, error) {
 	}
 
 	if res.IsError() {
-		return nil, errors.New("data not found")
+		resp.Message = "https://upload.wikimedia.org/wikipedia/commons/9/94/My_dog.jpg"
+		util.LogError("data not found", "GetDogImg IsError")
+		return &resp, nil
 	} else if res.IsSuccess() {
 		return &resp, nil
 	}
@@ -215,7 +223,9 @@ func (g *GameRepoImpl) GetCatImg() (*domain.ImgCat, error) {
 	}
 
 	if res.IsError() {
-		return nil, errors.New("data not found")
+		resp.URL = "https://upload.wikimedia.org/wikipedia/commons/3/38/Adorable-animal-cat-20787.jpg"
+		util.LogError("data not found", "GetCatImg IsError")
+		return &resp, nil
 	} else if res.IsSuccess() {
 		return &resp, nil
 	}
@@ -237,7 +247,9 @@ func (g *GameRepoImpl) GetDuckImg() (*domain.ImgDuck, error) {
 	}
 
 	if res.IsError() {
-		return nil, errors.New("data not found")
+		resp.URL = "https://upload.wikimedia.org/wikipedia/commons/7/74/White_domesticated_duck%2C_stretching.jpg"
+		util.LogError("data not found", "GetDuckImg IsError")
+		return &resp, nil
 	} else if res.IsSuccess() {
 		return &resp, nil
 	}

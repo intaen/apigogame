@@ -87,14 +87,15 @@ func (g *GameServiceImpl) FindRandomFact() (*domain.RandomFact, error) {
 		return nil, err
 	}
 
-	// // Get fact abt dog
-	// dog, err := g.gRepo.GetFactDog()
-	// if err != nil {
-	// 	return nil, err
-	// }
+	// API Error
+	// Get fact abt dog
+	dog, err := g.gRepo.GetFactDog()
+	if err != nil {
+		return nil, err
+	}
 
 	// Add facts to array to randomize
-	facts = append(facts, fun.Text, math.Text)
+	facts = append(facts, fun.Text, math.Text, dog[0].Fact)
 	fact := util.RandomData(facts)
 
 	// Create response as needed
@@ -114,6 +115,7 @@ func (g *GameServiceImpl) FindRandomImage() (*domain.RandomImg, error) {
 		return nil, err
 	}
 
+	// API Error
 	// Get cat image
 	cat, err := g.gRepo.GetCatImg()
 	if err != nil {
