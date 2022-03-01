@@ -84,6 +84,6 @@ func main() {
 	gc.CreateGameController(r, gService)
 	tc.CreateTwitterController(r, tService, gService)
 
-	r.Run(":" + viper.GetString("port"))
-	// r.Run() // Heroku will supply automatically
+	// r.Run(":" + viper.GetString("port"))
+	r.Run() // Heroku will supply automatically
 }
