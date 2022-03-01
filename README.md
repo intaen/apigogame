@@ -4,8 +4,8 @@ Simple API contains simple game such as predict your age, country, gender by inp
 
 ## Documentation
 ```Swagger```
-http://localhost:1111/swagger/index.html
+https://apigogame.herokuapp.com/swagger/index.html
 
 ## Deploy
 ```Heroku```
-https://apigogame.herokuapp.com/
+https://apigogame.herokuapp.com
