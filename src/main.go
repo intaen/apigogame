@@ -33,8 +33,8 @@ func init() {
 // @title GOGAME
 // @version 1.0
 // @description This page is API documentation for a little game like predict age, gender by name, get random fact, image, joke
-// @schemes http
-// @host localhost:1111
+// @schemes https
+// @host apigogame.herokuapp.com
 // @contact.name Developer
 // @contact.email intanmarsjaf@outlook.com
 func main() {
