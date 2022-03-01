@@ -262,72 +262,6 @@ const docTemplate = `{
                     }
                 }
             }
-        },
-        "/twitter/timeline": {
-            "post": {
-                "description": "This is API to see tweets in timeline",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Twitter"
-                ],
-                "summary": "Get Tweets in Timeline",
-                "parameters": [
-                    {
-                        "description": "Body",
-                        "name": "domain.ExamplePredictName",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/domain.InputTimeline"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.SuccessResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.BadRequestResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/twitter/tweet/fact": {
-            "get": {
-                "description": "This is API to tweet random fact",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Twitter"
-                ],
-                "summary": "Random Fact",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.SuccessResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/domain.BadRequestResponse"
-                        }
-                    }
-                }
-            }
         }
     },
     "definitions": {
@@ -363,14 +297,6 @@ const docTemplate = `{
                 "is_safe": {
                     "type": "boolean",
                     "example": false
-                }
-            }
-        },
-        "domain.InputTimeline": {
-            "type": "object",
-            "properties": {
-                "total_data_show": {
-                    "type": "integer"
                 }
             }
         },

@@ -1,0 +1,20 @@
+{
+    "host": "",
+    "port": "",
+    "url": {
+        "predict-age": "https://api.agify.io/?",
+        "predict-nat": "https://api.nationalize.io/?",
+        "predict-gender": "https://api.genderize.io/?",
+        "random-act": "https://www.boredapi.com/api/activity",
+        "fact-math": "http://numbersapi.com/random/math",
+        "fact-dog": "https://dog-facts-api.herokuapp.com/api/v1/resources/dogs?number=1",
+        "fact-random": "https://ffa.aakhilv.me/json",
+        "random-dog": "https://dog.ceo/api/breeds/image/random",
+        "random-cat": "https://thatcopy.pw/catapi/rest/",
+        "random-duck": "https://random-d.uk/api/quack",
+        "random-joke": "https://v2.jokeapi.dev/joke/Any?",
+
+        "countries": "https://api.first.org/data/v1/countries",
+        "public-apis": "https://api.publicapis.org/entries"
+    }
+}

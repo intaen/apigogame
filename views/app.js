@@ -30,7 +30,7 @@ function submitForm(e) {
     alert("Hi "+name+"! Wait a minute...");
     e.preventDefault();
 
-    fetch('/game/v1/predict', {
+    fetch('/game/predict', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ function checkDare(e) {
 
     e.preventDefault();
 
-    fetch('/game/v1/dare', {
+    fetch('/game/dare', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -138,7 +138,7 @@ function checkFact(e) {
 
     e.preventDefault();
 
-    fetch('/game/v1/fact', {
+    fetch('/game/fact', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -180,7 +180,7 @@ function createPageFun() {
 function getImg(e) {
   e.preventDefault();
 
-  fetch('/game/v1/img', {
+  fetch('/game/img', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -203,7 +203,7 @@ function checkJoke(e) {
 
   e.preventDefault();
 
-  fetch('/game/v1/joke', {
+  fetch('/game/joke', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

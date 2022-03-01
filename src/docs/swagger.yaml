@@ -23,11 +23,6 @@ definitions:
         example: false
         type: boolean
     type: object
-  domain.InputTimeline:
-    properties:
-      total_data_show:
-        type: integer
-    type: object
   domain.SuccessResponse:
     properties:
       code:
@@ -208,49 +203,6 @@ paths:
       summary: List Country
       tags:
       - Master Data
-  /twitter/timeline:
-    post:
-      consumes:
-      - application/json
-      description: This is API to see tweets in timeline
-      parameters:
-      - description: Body
-        in: body
-        name: domain.ExamplePredictName
-        required: true
-        schema:
-          $ref: '#/definitions/domain.InputTimeline'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.SuccessResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.BadRequestResponse'
-      summary: Get Tweets in Timeline
-      tags:
-      - Twitter
-  /twitter/tweet/fact:
-    get:
-      description: This is API to tweet random fact
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.SuccessResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/domain.BadRequestResponse'
-      summary: Random Fact
-      tags:
-      - Twitter
 schemes:
 - http
 swagger: "2.0"
