@@ -34,7 +34,7 @@ definitions:
       result:
         type: object
     type: object
-host: apigogame.herokuapp.com
+host: localhost:1111
 info:
   contact:
     email: intanmarsjaf@outlook.com
@@ -204,5 +204,5 @@ paths:
       tags:
       - Master Data
 schemes:
-- https
+- http
 swagger: "2.0"

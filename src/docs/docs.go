@@ -322,9 +322,9 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "apigogame.herokuapp.com",
+	Host:             "localhost:1111",
 	BasePath:         "",
-	Schemes:          []string{"https"},
+	Schemes:          []string{"http"},
 	Title:            "GOGAME",
 	Description:      "This page is API documentation for a little game like predict age, gender by name, get random fact, image, joke",
 	InfoInstanceName: "swagger",

@@ -33,8 +33,8 @@ func init() {
 // @title GOGAME
 // @version 1.0
 // @description This page is API documentation for a little game like predict age, gender by name, get random fact, image, joke
-// @schemes https
-// @host apigogame.herokuapp.com
+// @schemes http
+// @host localhost:1111
 // @contact.name Developer
 // @contact.email intanmarsjaf@outlook.com
 func main() {
@@ -53,9 +53,7 @@ func main() {
 	})
 
 	// Swagger
-	// https://apigogame.herokuapp.com
-	// viper.GetString("host") + ":" + viper.GetString("port")
-	url := ginSwagger.URL("https://apigogame.herokuapp.com" + "/swagger/doc.json") // The url pointing to API definition
+	url := ginSwagger.URL(viper.GetString("host") + ":" + viper.GetString("port") + "/swagger/doc.json") // The url pointing to API definition
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
 	// Initiate Repo
@@ -70,6 +68,6 @@ func main() {
 	mc.CreateMasterDataController(r, mdService)
 	gc.CreateGameController(r, gService)
 
-	// r.Run(":" + viper.GetString("port"))
-	r.Run() // Heroku will supply automatically
+	r.Run(":" + viper.GetString("port"))
+	// r.Run() // Heroku will supply automatically
 }
