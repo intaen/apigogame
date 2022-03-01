@@ -14,13 +14,13 @@ type GameController struct {
 
 func CreateGameController(r *gin.Engine, gService domain.GameService) {
 	GameController := GameController{gService: gService}
-	v1 := r.Group("/game/v1")
+	game := r.Group("/game")
 	{
-		v1.POST("/predict", GameController.GetPredictionByName)
-		v1.GET("/dare", GameController.GetRandomActivity)
-		v1.GET("/fact", GameController.GetRandomFact)
-		v1.GET("/img", GameController.GetRandomImage)
-		v1.POST("/joke", GameController.GetRandomJoke)
+		game.POST("/predict", GameController.GetPredictionByName)
+		game.GET("/dare", GameController.GetRandomActivity)
+		game.GET("/fact", GameController.GetRandomFact)
+		game.GET("/img", GameController.GetRandomImage)
+		game.POST("/joke", GameController.GetRandomJoke)
 	}
 }
 
@@ -33,7 +33,7 @@ func CreateGameController(r *gin.Engine, gService domain.GameService) {
 // @Param domain.ExamplePredictName body domain.ExamplePredictName true "Body"
 // @Success 200 {object} domain.SuccessResponse
 // @Failure 400 {object} domain.BadRequestResponse
-// @Router /game/v1/predict [post]
+// @Router /game/predict [post]
 func (g *GameController) GetPredictionByName(c *gin.Context) {
 	var input domain.InputPredictName
 	err := c.ShouldBind(&input)
@@ -58,7 +58,7 @@ func (g *GameController) GetPredictionByName(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} domain.SuccessResponse
 // @Failure 400 {object} domain.BadRequestResponse
-// @Router /game/v1/dare [get]
+// @Router /game/dare [get]
 func (g *GameController) GetRandomActivity(c *gin.Context) {
 	result, err := g.gService.FindRandomActivity()
 	if err != nil {
@@ -77,7 +77,7 @@ func (g *GameController) GetRandomActivity(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} domain.SuccessResponse
 // @Failure 400 {object} domain.BadRequestResponse
-// @Router /game/v1/fact [get]
+// @Router /game/fact [get]
 func (g *GameController) GetRandomFact(c *gin.Context) {
 	result, err := g.gService.FindRandomFact()
 	if err != nil {
@@ -96,7 +96,7 @@ func (g *GameController) GetRandomFact(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} domain.SuccessResponse
 // @Failure 400 {object} domain.BadRequestResponse
-// @Router /game/v1/img [get]
+// @Router /game/img [get]
 func (g *GameController) GetRandomImage(c *gin.Context) {
 	result, err := g.gService.FindRandomImage()
 	if err != nil {
@@ -117,7 +117,7 @@ func (g *GameController) GetRandomImage(c *gin.Context) {
 // @Param domain.InputRandomJoke body domain.InputRandomJoke true "Body"
 // @Success 200 {object} domain.SuccessResponse
 // @Failure 400 {object} domain.BadRequestResponse
-// @Router /game/v1/joke [post]
+// @Router /game/joke [post]
 func (g *GameController) GetRandomJoke(c *gin.Context) {
 	var input domain.InputRandomJoke
 	err := c.ShouldBind(&input)

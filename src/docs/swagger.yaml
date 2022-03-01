@@ -23,6 +23,11 @@ definitions:
         example: false
         type: boolean
     type: object
+  domain.InputTimeline:
+    properties:
+      total_data_show:
+        type: integer
+    type: object
   domain.SuccessResponse:
     properties:
       code:
@@ -44,7 +49,7 @@ info:
   title: GOGAME
   version: "1.0"
 paths:
-  /game/v1/dare:
+  /game/dare:
     get:
       description: This is API to get random activity
       produces:
@@ -61,7 +66,7 @@ paths:
       summary: Random Activity
       tags:
       - Game
-  /game/v1/fact:
+  /game/fact:
     get:
       description: This is API to get random fact
       produces:
@@ -78,7 +83,7 @@ paths:
       summary: Random Fact
       tags:
       - Game
-  /game/v1/img:
+  /game/img:
     get:
       description: This is API to get random image
       produces:
@@ -95,7 +100,7 @@ paths:
       summary: Random Image
       tags:
       - Game
-  /game/v1/joke:
+  /game/joke:
     post:
       consumes:
       - application/json
@@ -121,7 +126,7 @@ paths:
       summary: Random Joke
       tags:
       - Game
-  /game/v1/predict:
+  /game/predict:
     post:
       consumes:
       - application/json
@@ -203,6 +208,49 @@ paths:
       summary: List Country
       tags:
       - Master Data
+  /twitter/timeline:
+    post:
+      consumes:
+      - application/json
+      description: This is API to see tweets in timeline
+      parameters:
+      - description: Body
+        in: body
+        name: domain.ExamplePredictName
+        required: true
+        schema:
+          $ref: '#/definitions/domain.InputTimeline'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.BadRequestResponse'
+      summary: Get Tweets in Timeline
+      tags:
+      - Twitter
+  /twitter/tweet/fact:
+    get:
+      description: This is API to tweet random fact
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.BadRequestResponse'
+      summary: Random Fact
+      tags:
+      - Twitter
 schemes:
 - http
 swagger: "2.0"

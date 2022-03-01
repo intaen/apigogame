@@ -75,11 +75,11 @@ func (g *GameServiceImpl) FindRandomActivity() (*domain.RandomActivity, error) {
 func (g *GameServiceImpl) FindRandomFact() (*domain.RandomFact, error) {
 	var facts []string
 
-	// Get fun fact
-	fun, err := g.gRepo.GetFunFact()
-	if err != nil {
-		return nil, err
-	}
+	// // Get fun fact
+	// fun, err := g.gRepo.GetFunFact()
+	// if err != nil {
+	// 	return nil, err
+	// }
 
 	// Get fact abt math
 	math, err := g.gRepo.GetFactMath()
@@ -95,7 +95,7 @@ func (g *GameServiceImpl) FindRandomFact() (*domain.RandomFact, error) {
 	}
 
 	// Add facts to array to randomize
-	facts = append(facts, fun.Text, math.Text, dog[0].Fact)
+	facts = append(facts, math.Text, dog[0].Fact)
 	fact := util.RandomData(facts)
 
 	// Create response as needed
