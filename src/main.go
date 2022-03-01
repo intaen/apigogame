@@ -1,7 +1,6 @@
 package main
 
 import (
-	"apigogame/src/driver"
 	gc "apigogame/src/game/controller"
 	gr "apigogame/src/game/repo"
 	gs "apigogame/src/game/service"
@@ -9,11 +8,7 @@ import (
 	mdr "apigogame/src/masterdata/repo"
 	mds "apigogame/src/masterdata/service"
 
-	tc "apigogame/src/twitter/controller"
-	tr "apigogame/src/twitter/repo"
-	ts "apigogame/src/twitter/service"
 	"apigogame/src/util"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/contrib/static"
@@ -63,26 +58,17 @@ func main() {
 	url := ginSwagger.URL("https://apigogame.herokuapp.com" + "/swagger/doc.json") // The url pointing to API definition
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
-	// Initiate Twitter Client
-	client, err := driver.InitiateClient()
-	if err != nil {
-		log.Printf("Error %v", err)
-	}
-
 	// Initiate Repo
 	mdRepo := mdr.CreateMasterDataRepoImpl()
 	gRepo := gr.CreateGameRepoImpl()
-	tRepo := tr.CreateTwitterRepoImpl(client)
 
 	// Initiate Service
 	mdService := mds.CreateMasterDataServiceImpl(mdRepo)
 	gService := gs.CreateGameServiceImpl(gRepo, mdService)
-	tService := ts.CreateTwitterServiceImpl(tRepo, gRepo)
 
 	// Initiate Controller
 	mc.CreateMasterDataController(r, mdService)
 	gc.CreateGameController(r, gService)
-	tc.CreateTwitterController(r, tService, gService)
 
 	// r.Run(":" + viper.GetString("port"))
 	r.Run() // Heroku will supply automatically
