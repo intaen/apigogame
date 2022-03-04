@@ -61,9 +61,15 @@ function submitForm(e) {
         nat = nats.join(" / ");
       }
 
-      // if data country not found, replace with new value
+      // if data country, gender, and age not found, replace with new value
       if (nat == "") {
         nat = "earth"
+      }
+      if (gender == "") {
+        gender = "human"
+      }
+      if (age == 0) {
+        age = 17
       }
 
       alert("Hi "+name+"! Based on your name, we think you are "+age+" years old.\nWe assume that you are a "+gender+" from "+nat+".")  
